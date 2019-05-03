@@ -7,10 +7,7 @@ import VersionStore from "./VersionStore";
 import webhook from "./webhook";
 
 (async () => {
-  const store = new VersionStore({
-    port: 6379,
-    host: process.env.REDIS_URL || "127.0.0.1",
-  });
+  const store = new VersionStore(process.env.REDIS_URL);
 
   await forEach(config, async ({ name, url, version, changelog }) => {
     const result = await updateChecker({

@@ -1,10 +1,5 @@
 import * as Redis from "ioredis";
 
-interface VersionStoreOptions {
-  host: string;
-  port: number;
-}
-
 interface CompareOptions {
   version: string;
   key: string;
@@ -13,11 +8,8 @@ interface CompareOptions {
 export default class VersionStore {
   private redis: Redis.Redis;
 
-  constructor({ host, port }: VersionStoreOptions) {
-    this.redis = new Redis({
-      host,
-      port,
-    });
+  constructor(redisURL?: string) {
+    this.redis = new Redis(redisURL || "127.0.0.1:6379");
   }
 
   public async compare({ version, key }: CompareOptions): Promise<boolean> {
