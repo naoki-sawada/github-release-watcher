@@ -1,0 +1,44 @@
+{
+  "name": "github-release-watcher",
+  "version": "0.0.1",
+  "description": "Github repository release watcher",
+  "main": "lib/app.js",
+  "author": "Naoki Sawada",
+  "license": "MIT",
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "clean": "rm -fr lib && rm -f tsconfig.tsbuildinfo",
+    "test:watch": "jest -c jest.config.js --watch",
+    "test": "jest -c jest.config.js --detectOpenHandles",
+    "lint:fix": "tslint -c tslint.json --fix 'src/**/*.ts'",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "build:watch": "tsc --watch",
+    "build": "tsc",
+    "dev": "npm run clean && nodemon --exec 'npm run build && npm start'",
+    "start": "node lib/app.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ioredis": "^4.9.0",
+    "node-jq": "^1.7.1",
+    "p-iteration": "^1.1.8",
+    "string-template": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/ioredis": "^4.0.10",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.9",
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
+    "prettier-tslint": "^0.4.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.4.5"
+  }
+}
