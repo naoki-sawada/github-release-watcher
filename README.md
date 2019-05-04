@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [About](#about)
+* [Deploy](#deploy)
 * [Install](#install)
 * [Usage](#usage)
 * [Contribute](#contribute)
@@ -13,6 +14,20 @@
 This application watch releases of the github repository.
 
 Notify with Slack web hook if a new release exists.
+
+## Deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/naoki-sawada/github-release-watcher/tree/master)
+
+### Setup scheduler
+
+Open your scheduler addon, and set the following run command.
+
+```
+node lib/app.js
+```
+
+For more detail about scheduler see [this document](https://devcenter.heroku.com/articles/scheduler#scheduling-jobs).
 
 ## Install
 

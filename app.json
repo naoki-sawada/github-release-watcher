@@ -1,0 +1,31 @@
+{
+  "name": "Github release watcher",
+  "description": "This application watch releases of the github repository.",
+  "repository": "https://github.com/naoki-sawada/github-release-watcher",
+  "env": {
+    "WEBHOOK_URL": {
+      "description": "Web hook URL for Slack. e.g. `https://hooks.slack.com/services/<workspace>/<channel>/<token>`"
+    }
+  },
+  "formation": [
+    {
+      "web": {
+        "quantity": 1,
+        "size": "free"
+      }
+    }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-redis"
+    },
+    {
+      "plan": "scheduler:standard"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
