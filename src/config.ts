@@ -1,29 +1,28 @@
-interface Config {
-  name: string;
-  url: string;
-  version: string;
-  changelog: string;
+import { transformAndValidate } from "class-transformer-validator";
+import { IsString, IsUrl } from "class-validator";
+
+class Config {
+  @IsString()
+  public name: string;
+
+  @IsUrl()
+  public url: string;
+
+  @IsString()
+  public version: string;
+
+  @IsString()
+  public changelog: string;
 }
 
-const githubBaseURL = "https://api.github.com";
+export const importConfig = async (path?: string): Promise<Config[]> => {
+  const obj = require(`${process.cwd()}/${path || "app.config.js"}`);
 
-export const messageTemplate =
-  "{name} {varsion} was released! Please check {changelog}";
+  const config = await transformAndValidate(Config, obj).catch(e => {
+    throw new Error(`Config validation error: ${JSON.stringify(e)}`);
+  });
 
-const config: Config[] = [
-  {
-    name: "typeorm",
-    url: `${githubBaseURL}/repos/typeorm/typeorm/tags`,
-    version: ".[0].name",
-    changelog: "https://github.com/typeorm/typeorm/blob/master/CHANGELOG.md",
-  },
-  {
-    name: "kubernetes",
-    url: `${githubBaseURL}/repos/kubernetes/kubernetes/releases/latest`,
-    version: ".name",
-    changelog:
-      "https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md",
-  },
-];
+  return Array.isArray(config) ? config : [config];
+};
 
-export default config;
+export default importConfig;

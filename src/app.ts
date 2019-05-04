@@ -1,11 +1,13 @@
 import * as jq from "node-jq";
 import * as format from "string-template";
-import config, { messageTemplate } from "./config";
+import importConfig from "./config";
+import { messageTemplate } from "./template";
 import updateChecker from "./updateChecker";
 import VersionStore from "./VersionStore";
 import webhook from "./webhook";
 
 (async () => {
+  const config = await importConfig();
   const store = new VersionStore(process.env.REDIS_URL);
 
   const results = await Promise.all(

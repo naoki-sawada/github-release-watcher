@@ -6,6 +6,8 @@
     "sourceMap": false,
     "rootDir": "./src",
     "outDir": "./lib",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "incremental": true
   },
   "include": ["./src/**/*"]
