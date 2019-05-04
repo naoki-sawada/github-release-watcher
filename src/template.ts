@@ -1,2 +1,2 @@
 export const messageTemplate =
-  "{name} {varsion} was released! Please check {changelog}";
+  "{name} {version} was released! Please check {changelog}";

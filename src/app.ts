@@ -17,9 +17,9 @@ import webhook from "./webhook";
         version: data =>
           jq.run(version, data, { input: "json", output: "json" }),
         checker: current => store.compare({ key: name, version: current }),
-        notification: varsion =>
+        notification: version =>
           webhook({
-            message: format(messageTemplate, { varsion, name, changelog }),
+            message: format(messageTemplate, { version, name, changelog }),
           }),
       }),
     ),
