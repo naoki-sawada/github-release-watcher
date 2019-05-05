@@ -5,6 +5,9 @@
   "env": {
     "WEBHOOK_URL": {
       "description": "Web hook URL for Slack. e.g. `https://hooks.slack.com/services/<workspace>/<channel>/<token>`"
+    },
+    "CONFIG_URL": {
+      "description": "URL for config file."
     }
   },
   "formation": [

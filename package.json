@@ -9,6 +9,7 @@
     "node": "10.x"
   },
   "scripts": {
+    "download-config": "wget -O app.config.js $CONFIG_URL",
     "clean": "rm -fr lib && rm -f tsconfig.tsbuildinfo",
     "test:watch": "jest -c jest.config.js --watch",
     "test": "jest -c jest.config.js --detectOpenHandles",
@@ -17,7 +18,7 @@
     "build:watch": "tsc --watch",
     "build": "tsc",
     "dev": "npm run clean && nodemon --exec 'npm run build && npm start'",
-    "start": "node lib/app.js"
+    "start": "npm run download-config && node lib/app.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
