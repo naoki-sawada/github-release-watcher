@@ -1,6 +1,6 @@
 {
   "name": "github-release-watcher",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Github repository release watcher",
   "main": "lib/app.js",
   "author": "Naoki Sawada",
