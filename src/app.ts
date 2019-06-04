@@ -8,24 +8,31 @@ import VersionStore from "./VersionStore";
 import webhook from "./webhook";
 
 (async () => {
-  const config = await importConfig();
   const store = new VersionStore(process.env.REDIS_URL);
-  const results = await Promise.all(
-    config.map(({ name, url, version, changelog }) =>
-      updateChecker({
-        url,
-        version: data =>
-          jq.run(version, data, { input: "json", output: "json" }),
-        checker: current => store.compare({ key: name, version: current }),
-        notification: version =>
-          webhook({
-            message: format(messageTemplate, { version, name, changelog }),
-          }),
-      }),
-    ),
-  );
-  config.forEach(({ name }, index) =>
-    logger.info(`${name}: ${results[index]}`),
-  );
-  store.disconnect();
+  try {
+    const config = await importConfig();
+    const results = await Promise.all(
+      config.map(({ name, url, version, changelog }) =>
+        updateChecker({
+          url,
+          version: data =>
+            jq.run(version, data, { input: "json", output: "json" }),
+          checker: current => store.compare({ key: name, version: current }),
+          notification: version =>
+            webhook({
+              message: format(messageTemplate, { version, name, changelog }),
+            }),
+        }),
+      ),
+    );
+    if (results) {
+      config.forEach(({ name }, index) =>
+        logger.info(`${name}: ${results[index]}`),
+      );
+    }
+  } catch (e) {
+    logger.error(e.stack);
+  } finally {
+    store.disconnect();
+  }
 })();

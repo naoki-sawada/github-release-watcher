@@ -14,5 +14,7 @@ export default async ({ message }: WebhookOptions): Promise<void> => {
     data: {
       text: message,
     },
+  }).catch(e => {
+    throw e;
   });
 };
