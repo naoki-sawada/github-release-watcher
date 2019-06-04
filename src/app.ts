@@ -1,6 +1,7 @@
 import * as jq from "node-jq";
 import * as format from "string-template";
 import importConfig from "./config";
+import logger from "./logger";
 import { messageTemplate } from "./template";
 import updateChecker from "./updateChecker";
 import VersionStore from "./VersionStore";
@@ -9,7 +10,6 @@ import webhook from "./webhook";
 (async () => {
   const config = await importConfig();
   const store = new VersionStore(process.env.REDIS_URL);
-
   const results = await Promise.all(
     config.map(({ name, url, version, changelog }) =>
       updateChecker({
@@ -24,10 +24,8 @@ import webhook from "./webhook";
       }),
     ),
   );
-
   config.forEach(({ name }, index) =>
-    console.log(`${name}: ${results[index]}`),
+    logger.info(`${name}: ${results[index]}`),
   );
-
   store.disconnect();
 })();
