@@ -17,7 +17,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "build:watch": "tsc --watch",
     "build": "tsc",
-    "dev": "npm run clean && nodemon --exec 'npm run build && npm start'",
+    "dev": "npm run clean && nodemon --exec 'npm run build && NODE_ENV=development node lib/app.js'",
     "start": "npm run download-config && node lib/app.js"
   },
   "dependencies": {
@@ -27,7 +27,8 @@
     "class-validator": "^0.9.1",
     "ioredis": "^4.9.0",
     "node-jq": "^1.7.1",
-    "string-template": "^1.0.0"
+    "string-template": "^1.0.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/ioredis": "^4.0.10",
