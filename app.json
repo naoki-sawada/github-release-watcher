@@ -10,14 +10,6 @@
       "description": "URL for config file."
     }
   },
-  "formation": [
-    {
-      "web": {
-        "quantity": 1,
-        "size": "free"
-      }
-    }
-  ],
   "addons": [
     {
       "plan": "heroku-redis"
