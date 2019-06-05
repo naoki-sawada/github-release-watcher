@@ -6,7 +6,7 @@ interface UpdateCheckerOptions {
   headers?: any;
   version: (data: any) => string | Promise<string>;
   checker: (version: string) => boolean | Promise<boolean>;
-  notification?: (version: string) => void;
+  notification: (version: string, subscribed: boolean) => void;
 }
 
 const updateChecker = async ({
@@ -32,9 +32,10 @@ const updateChecker = async ({
 
     const latest = await version(data);
     const isUpdate = await checker(latest);
+    const subscribed = isUpdate === null;
 
-    if (isUpdate && notification) {
-      notification(latest);
+    if (subscribed || isUpdate) {
+      notification(latest, subscribed);
     }
 
     return isUpdate;

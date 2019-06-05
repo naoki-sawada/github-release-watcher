@@ -2,7 +2,7 @@ import * as jq from "node-jq";
 import * as format from "string-template";
 import importConfig from "./config";
 import logger from "./logger";
-import { messageTemplate } from "./template";
+import { messageTemplate, subscribedMessageTemplate } from "./template";
 import updateChecker from "./updateChecker";
 import VersionStore from "./VersionStore";
 import webhook from "./webhook";
@@ -18,9 +18,12 @@ import webhook from "./webhook";
           version: data =>
             jq.run(version, data, { input: "json", output: "json" }),
           checker: current => store.compare({ key: name, version: current }),
-          notification: version =>
+          notification: (version, subscribed) =>
             webhook({
-              message: format(messageTemplate, { version, name, changelog }),
+              message: format(
+                subscribed ? subscribedMessageTemplate : messageTemplate,
+                { version, name, changelog },
+              ),
             }),
         }),
       ),

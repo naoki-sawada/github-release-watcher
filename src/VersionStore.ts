@@ -17,7 +17,7 @@ export default class VersionStore {
       const latest = await this.redis.get(key);
       if (version !== latest) {
         await this.redis.set(key, version);
-        return true;
+        return latest === null ? null : true;
       }
       return false;
     } catch (e) {
